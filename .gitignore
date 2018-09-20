@@ -102,3 +102,22 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# special project files
+.idea/
+*.iml
+*-checkpoint.ipynb
+__pycache__
+images/
+myCustomDataset/
+data/
+*.jpg
+*.png
+*.gz
+*.zip
+*.json
+*.pkl
+*.pickle
+*.npy
+*.npz
