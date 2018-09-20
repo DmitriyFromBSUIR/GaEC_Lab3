@@ -41,24 +41,40 @@ class CrossoverOperator(Enum):
     TWO_POINT_CROSSOVER = 1
     MULTIPLE_POINT_CROSSOVER = 2
     MONOLITHIC_SINGLE_STAGE_UNIFORM_CROSSOVER = 3
+    CONSTRAINT_DEPENDENT = 4
+    SCATTERED = 5
+    INTERMEDIATE = 6
+    HEURISTIC = 7
+    ARITHMETIC = 8
 
 class InversionOperator(Enum):
     ONE_GENE_LOCUS_INVERSION = 0
     GENE_LOCUSES_EXCHANGE_IN_CHROMOSOME = 1
 
+class MutationFunction(Enum):
+    CONSTRAINT_DEPENDENT = 0
+    UNIFORM = 1
+    GAUSSIAN = 2
+    ADAPTIVE_FEASIBLE = 3
+
+class MigrationPolicy(Enum):
+    FORWARD = 0
+    BOTH = 1
+
 class FitnessFunctionScalingMethod(Enum):
     LINEAR = 0
     SIGMA_TRUNCATION = 1
     POWER_LAW = 2
+    RANK = 3
+    PROPORTIONAL = 4
+    TOP = 5
+    SHIFT_LINEAR = 6
 
 class StoppingCriteria(Enum):
     EPOCHS_MAX_ITERATIONS = 0
     FITNESSS_FUNCTION_TOLERANCE = 1
     CHROMOSOME_TOLERANCE = 2
     CONSTRAINT_TOLERANCE = 3
-    RANK = 4
-    PROPORTIONAL = 5
-    
 
 class CodingScheme(Enum):
     BINARY_CODING = 0
