@@ -13,6 +13,7 @@ class InitializationAlgorithm(Enum):
     APPROXIMATE_HEURISTIC_METHOD = 4
     PSEUDOPOLYNOMIAL_METHOD = 5
     RANDOM_SEARCH_METHOD = 6
+    GENETIC_CREATION_STRATEGY = 7
 
 # use it if InitializationAlgorithm == GENETIC_CREATION_FUNCTION
 class InitialPopulationCreationFunction(Enum):
@@ -22,6 +23,12 @@ class InitialPopulationCreationFunction(Enum):
     UNIFORM_METHOD = 3
     FEASIBLE_POPULATION_METHOD = 4
     NONLINEAR_FEASIBLE_POPULATION_METHOD = 5
+
+# use it if InitializationAlgorithm == GENETIC_CREATION_STRATEGY
+class InitialPopulationCreationStrategy(Enum):
+    COVERLET_STRATEGY = 0
+    SHOTGUN_STRATEGY = 1
+    FOCUSSING_STRATEGY = 2
 
 class ReproductionOperator(Enum):
     ASYMMETRIC_WEIGHTED_ROULETTE_WHEEL_SELECTION = 0
