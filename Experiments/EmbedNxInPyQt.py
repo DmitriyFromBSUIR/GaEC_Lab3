@@ -10,10 +10,9 @@ import networkx as nx
 
 class PrettyWidget(QWidget):
 
-    NumButtons = ['plot1','plot2', 'plot3']
+    NumButtons = ['plot1', 'plot2', 'plot3']
 
     def __init__(self):
-
 
         super(PrettyWidget, self).__init__()
         font = QFont()
