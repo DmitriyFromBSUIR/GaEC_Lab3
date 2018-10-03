@@ -7,7 +7,12 @@ import City as spacePoint
 from GeneticAndEvoLib import GeneticAlgorithm as ga
 import Visualizer as vis
 
+
+
+
 if __name__ == "__main__":
+    #
+
     #
     fileWorker = fw.FileWorker(citiesFilepath=glb.CITIES_FILEPATH, optTourFilepath=glb.OPTIMAL_TOUR_FILEPATH)
     citiesFileMetadata, optTourFileMetadata, \

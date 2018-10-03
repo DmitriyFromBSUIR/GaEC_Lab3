@@ -13,3 +13,6 @@ OPTIMAL_TOUR_FILEPATH = "./data/eil51.opt.tour"
 
 #
 APP_RESOURCES_DIR = scriptDir + pathSep + "resources" + pathSep + "images" + pathSep
+
+#
+DIRECTORY_VIEWER_ROOT_PATH = './data/'

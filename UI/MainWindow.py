@@ -8,13 +8,14 @@ import re
 #
 from PyQt5.QtCore import QDate, QFile, Qt, QTextStream
 from PyQt5.QtGui import (QFont, QIcon, QKeySequence, QTextCharFormat,
-        QTextCursor, QTextTableFormat)
+        QTextCursor, QTextTableFormat, )
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 import PyQt5.QtWidgets as qwgt
 from PyQt5.QtWidgets import (QAction, QApplication, QWidget, QDialog, QDockWidget,
-        QFileDialog, QListWidget, QMainWindow, QMessageBox, QTextEdit)
+        QFileDialog, QListWidget, QMainWindow, QMessageBox, QTextEdit, QVBoxLayout, QHBoxLayout, QSplitter)
 #
 import Globals as glb
+import UI.Widgets.FilesHierarchyViewer as fhv
 
 
 class MainWindow(QMainWindow):
@@ -37,9 +38,15 @@ class MainWindow(QMainWindow):
         self.initUI()
         # menu actions
         self.newExperimentAct = None
-        
+        # menu toolbar
+        self.experimentControlToolbar = None
         # custom high-level widgets
+        self.wgtFilesHierarchyViewer = None
+        self.wgtFileContentViewer = None
         self.wgtExperimentTasksVisualizer = None
+        self.wgtFitnessFunctionVisualizer = None
+        self.wgtExperimentConsole = None
+        self.wgtExperimentControlPanel = None
 
     def printScreenSettings(self):
         if self.__app is not None:
@@ -81,13 +88,10 @@ class MainWindow(QMainWindow):
     def printing(self):
         document = self.textEdit.document()
         printer = QPrinter()
-
         dlg = QPrintDialog(printer, self)
         if dlg.exec_() != QDialog.Accepted:
             return
-
         document.print_(printer)
-
         self.statusBar().showMessage("Ready", 2000)
 
     def save(self):
@@ -216,12 +220,9 @@ class MainWindow(QMainWindow):
     def createFilesHierarchyViewerWgt(self):
         dockWin = QDockWidget("Files Hierarchy Viewer", self)
         dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.wgtFilesHierarchyViewer = QListWidget(dockWin)
-        self.wgtFilesHierarchyViewer.addItems((
-            "File 1",
-            "File 2"))
+        self.wgtFilesHierarchyViewer = fhv.FilesHierarchyViewer()
         dockWin.setWidget(self.wgtFilesHierarchyViewer)
-        self.addDockWidget(Qt.RightDockWidgetArea, dockWin)
+        self.addDockWidget(Qt.LeftDockWidgetArea, dockWin)
         self.viewMenu.addAction(dockWin.toggleViewAction())
         return dockWin
 
@@ -233,7 +234,7 @@ class MainWindow(QMainWindow):
             "File 1",
             "File 2"))
         dockWin.setWidget(self.wgtFileContentViewer)
-        self.addDockWidget(Qt.RightDockWidgetArea, dockWin)
+        self.addDockWidget(Qt.LeftDockWidgetArea, dockWin)
         self.viewMenu.addAction(dockWin.toggleViewAction())
         return dockWin
 
@@ -245,9 +246,75 @@ class MainWindow(QMainWindow):
             "File 1",
             "File 2"))
         dockWin.setWidget(self.wgtExperimentTasksVisualizer)
+        # self.addDockWidget(Qt.NoDockWidgetArea, dockWin)
+        self.viewMenu.addAction(dockWin.toggleViewAction())
+        return dockWin
+
+    def createFitnessFunctionVisualizationWgt(self):
+        dockWin = QDockWidget("Fitness Function Visualization", self)
+        dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.wgtFitnessFunctionVisualizer = QListWidget(dockWin)
+        self.wgtFitnessFunctionVisualizer.addItems((
+            "File 1",
+            "File 2"))
+        dockWin.setWidget(self.wgtFitnessFunctionVisualizer)
+        # self.addDockWidget(Qt.NoDockWidgetArea, dockWin)
+        self.viewMenu.addAction(dockWin.toggleViewAction())
+        return dockWin
+
+    def createExperimentConsoleWgt(self):
+        dockWin = QDockWidget("Experiment Console", self)
+        dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.wgtExperimentConsole = QListWidget(dockWin)
+        self.wgtExperimentConsole.addItems((
+            "File 1",
+            "File 2"))
+        dockWin.setWidget(self.wgtExperimentConsole)
+        # self.addDockWidget(Qt.NoDockWidgetArea, dockWin)
+        self.viewMenu.addAction(dockWin.toggleViewAction())
+        return dockWin
+
+    def createExperimentControlPanelWgt(self):
+        dockWin = QDockWidget("Experiment Control Panel", self)
+        dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.wgtExperimentControlPanel = QListWidget(dockWin)
+        self.wgtExperimentControlPanel.addItems((
+            "File 1",
+            "File 2"))
+        dockWin.setWidget(self.wgtExperimentControlPanel)
         self.addDockWidget(Qt.RightDockWidgetArea, dockWin)
         self.viewMenu.addAction(dockWin.toggleViewAction())
         return dockWin
+
+    def createCentralWidget(self):
+        #
+        experimentTasksVisualizationWgt = self.createExperimentTasksVisualizationWgt()
+        #
+        fitnessFunctionVisualizationWgt = self.createFitnessFunctionVisualizationWgt()
+        #
+        experimentConsoleWgt = self.createExperimentConsoleWgt()
+        # experimentConsoleWgt.setMaximumHeight(300)
+        #
+        # visLayout = QHBoxLayout()
+        # visLayout.addWidget(experimentTasksVisualizationWgt)
+        # visLayout.addWidget(fitnessFunctionVisualizationWgt)
+        hSplitter = QSplitter(Qt.Horizontal)
+        hSplitter.addWidget(experimentTasksVisualizationWgt)
+        hSplitter.addWidget(fitnessFunctionVisualizationWgt)
+        # dockedVisWgts = QWidget()
+        # dockedVisWgts.setLayout(visLayout)
+        #
+        centralWgtMainLayout = QVBoxLayout()
+        # centralWgtMainLayout.addWidget(dockedVisWgts)
+        # centralWgtMainLayout.addWidget(experimentConsoleWgt)
+        vSplitter = QSplitter(Qt.Vertical)
+        vSplitter.addWidget(hSplitter)
+        vSplitter.addWidget(experimentConsoleWgt)
+        centralWgtMainLayout.addWidget(vSplitter)
+        #
+        centralWidget = QWidget()
+        centralWidget.setLayout(centralWgtMainLayout)
+        return centralWidget
 
     def createDockWindows(self):
         #
@@ -255,16 +322,16 @@ class MainWindow(QMainWindow):
         #
         self.createFileViewerWgt()
         #
-        self.createExperimentTasksVisualizationWgt()
+        centralWidget = self.createCentralWidget()
+        self.setCentralWidget(centralWidget)
+        #
+        self.createExperimentControlPanelWgt()
 
     def initUI(self):
         # configure app window
         self.configureWindow()
         # set central wgt that save high level control panels
-        #self.__highLevelControlPanels = None
-        #self.setCentralWidget(QWidget())
-        #self.textEdit = QTextEdit()
-        #self.setCentralWidget(self.textEdit)
+
         # build main ui controls
         self.createActions()
         self.createMenus()
