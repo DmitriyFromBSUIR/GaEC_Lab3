@@ -16,6 +16,7 @@ from PyQt5.QtWidgets import (QAction, QApplication, QWidget, QDialog, QDockWidge
 #
 import Globals as glb
 import UI.Widgets.FilesHierarchyViewer as fhv
+import UI.Widgets.FileContentViewer as fcv
 
 
 class MainWindow(QMainWindow):
@@ -229,11 +230,8 @@ class MainWindow(QMainWindow):
     def createFileViewerWgt(self):
         dockWin = QDockWidget("File Viewer", self)
         dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.wgtFileContentViewer = QListWidget(dockWin)
-        self.wgtFileContentViewer.addItems((
-            "File 1",
-            "File 2"))
-        dockWin.setWidget(self.wgtFileContentViewer)
+        # self.wgtFileContentViewer = fcv.FileContentViewer()
+        # dockWin.setWidget(self.wgtFileContentViewer)
         self.addDockWidget(Qt.LeftDockWidgetArea, dockWin)
         self.viewMenu.addAction(dockWin.toggleViewAction())
         return dockWin

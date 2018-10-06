@@ -31,6 +31,7 @@ class FilesHierarchyViewer(QWidget):
 
         self.model = QFileSystemModel()
         self.model.setRootPath(glb.DIRECTORY_VIEWER_ROOT_PATH)
+        print(glb.DIRECTORY_VIEWER_ROOT_PATH)
         self.tree = QTreeView()
         self.tree.setModel(self.model)
 
