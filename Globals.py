@@ -22,3 +22,6 @@ FILE_CONTENT_VIEWER_DEFAULT_FILEPATH = scriptDir + pathSep + "data" + pathSep + 
 
 #
 TEXT_EDITOR_RESOURCES_FILEPATH = scriptDir + pathSep + "resources" + pathSep + "icons" + pathSep
+
+#
+ALGORITHMS_DECL_LIST_SCRIPT_FILEPATH = scriptDir + pathSep + "GeneticAndEvoLib" + pathSep + "AlgorithmsDeclLists.py"
