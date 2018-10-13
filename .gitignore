@@ -108,7 +108,6 @@ venv.bak/
 .idea/
 *.iml
 *-checkpoint.ipynb
-__pycache__
 images/
 myCustomDataset/
 data/
