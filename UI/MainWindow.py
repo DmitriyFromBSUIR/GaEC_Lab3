@@ -17,6 +17,8 @@ from PyQt5.QtWidgets import (QAction, QApplication, QWidget, QDialog, QDockWidge
 import Globals as glb
 import UI.Widgets.FilesHierarchyViewer as fhv
 import UI.Widgets.FileContentViewer as fcv
+import UI.Widgets.ExperimentControlPanel as ecp
+import UI.Widgets.ExperimentStatisticsPanel as esp
 
 
 class MainWindow(QMainWindow):
@@ -48,6 +50,7 @@ class MainWindow(QMainWindow):
         self.wgtFitnessFunctionVisualizer = None
         self.wgtExperimentConsole = None
         self.wgtExperimentControlPanel = None
+        self.wgtExperimentStatisticsPanel = None
 
     def printScreenSettings(self):
         if self.__app is not None:
@@ -275,11 +278,17 @@ class MainWindow(QMainWindow):
     def createExperimentControlPanelWgt(self):
         dockWin = QDockWidget("Experiment Control Panel", self)
         dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.wgtExperimentControlPanel = QListWidget(dockWin)
-        self.wgtExperimentControlPanel.addItems((
-            "File 1",
-            "File 2"))
+        self.wgtExperimentControlPanel = ecp.ExperimentControlPanel()
         dockWin.setWidget(self.wgtExperimentControlPanel)
+        self.addDockWidget(Qt.RightDockWidgetArea, dockWin)
+        self.viewMenu.addAction(dockWin.toggleViewAction())
+        return dockWin
+
+    def createExperimentStatisticsPanelWgt(self):
+        dockWin = QDockWidget("Experiment Statistics Panel", self)
+        dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.wgtExperimentStatisticsPanel = esp.ExperimentStatisticsPanel()
+        dockWin.setWidget(self.wgtExperimentStatisticsPanel)
         self.addDockWidget(Qt.RightDockWidgetArea, dockWin)
         self.viewMenu.addAction(dockWin.toggleViewAction())
         return dockWin
@@ -324,6 +333,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(centralWidget)
         #
         self.createExperimentControlPanelWgt()
+        #
+        self.createExperimentStatisticsPanelWgt()
 
     def initUI(self):
         # configure app window
