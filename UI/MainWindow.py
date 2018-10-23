@@ -19,6 +19,10 @@ import UI.Widgets.FilesHierarchyViewer as fhv
 import UI.Widgets.FileContentViewer as fcv
 import UI.Widgets.ExperimentControlPanel as ecp
 import UI.Widgets.ExperimentStatisticsPanel as esp
+import UI.Widgets.ExperimentConsoleOutput as eco
+
+
+mainWin = None
 
 
 class MainWindow(QMainWindow):
@@ -51,6 +55,10 @@ class MainWindow(QMainWindow):
         self.wgtExperimentConsole = None
         self.wgtExperimentControlPanel = None
         self.wgtExperimentStatisticsPanel = None
+
+    @property
+    def experimentConsoleWgt(self):
+        return self.wgtExperimentConsole
 
     def printScreenSettings(self):
         if self.__app is not None:
@@ -266,10 +274,7 @@ class MainWindow(QMainWindow):
     def createExperimentConsoleWgt(self):
         dockWin = QDockWidget("Experiment Console", self)
         dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.wgtExperimentConsole = QListWidget(dockWin)
-        self.wgtExperimentConsole.addItems((
-            "File 1",
-            "File 2"))
+        self.wgtExperimentConsole = eco.ExperimentConsoleOutput()
         dockWin.setWidget(self.wgtExperimentConsole)
         # self.addDockWidget(Qt.NoDockWidgetArea, dockWin)
         self.viewMenu.addAction(dockWin.toggleViewAction())
@@ -359,6 +364,16 @@ def run():
         sys.exit(app.exec_())
     except Exception as e:
         print("[", dt.datetime.now(), ", LOG] msg: ", e)
+
+
+def getMainWindowGuiInstance():
+    return mainWin
+
+def getExperimentConsoleOutputWgt():
+    if getMainWindowGuiInstance() is not None:
+        return getMainWindowGuiInstance().experimentConsoleWgt()
+    else:
+        return None
 
 
 if __name__ == '__main__':

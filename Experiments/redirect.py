@@ -1,15 +1,22 @@
 
-
-from PyQt4 import QtGui, QtCore, uic
+#
+import sys
+#
+import PyQt5.Qt as Qt
+import PyQt5.QtCore as QtCore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QTextEdit, QComboBox, QVBoxLayout, \
+    QSizePolicy, QScrollArea
+import PyQt5.QtGui as QtGui
+from PyQt5 import QtWidgets, uic
 
 
 def p(x):
     print(x)
 
 
-class MainWindow(QtGui.QMainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
-        QtGui.QWidget.__init__(self)
+        super(MainWindow, self).__init__()
         uic.loadUi('redirect.ui', self)
 
         print('Connecting process')
@@ -40,8 +47,7 @@ class MainWindow(QtGui.QMainWindow):
 
 
 def main():
-    import sys
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     win = MainWindow()
     win.show()
     sys.exit(app.exec_())

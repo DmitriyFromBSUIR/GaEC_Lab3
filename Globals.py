@@ -25,3 +25,6 @@ TEXT_EDITOR_RESOURCES_FILEPATH = scriptDir + pathSep + "resources" + pathSep + "
 
 #
 ALGORITHMS_DECL_LIST_SCRIPT_FILEPATH = scriptDir + pathSep + "GeneticAndEvoLib" + pathSep + "AlgorithmsDeclLists.py"
+
+#
+APP_GUI_ENTRY_POINT = scriptDir + pathSep + "UI" + pathSep + "Widgets" + pathSep + "MainWindows.py"
