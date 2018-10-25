@@ -6,6 +6,9 @@ import sys
 import datetime as dt
 import re
 #
+import PyQt5.Qt as Qt
+import PyQt5.QtCore as QtCore
+import PyQt5.QtGui as QtGui
 from PyQt5.QtCore import QDate, QFile, Qt, QTextStream
 from PyQt5.QtGui import (QFont, QIcon, QKeySequence, QTextCharFormat,
         QTextCursor, QTextTableFormat, )
@@ -146,7 +149,8 @@ class MainWindow(QMainWindow):
         pass
 
     def launchExperiment(self):
-        pass
+        print("Epriment started!!!")
+        self.startAlgorithmsInThread()
 
     def createActions(self):
         print("app resources filedir = ", glb.APP_RESOURCES_DIR)
@@ -352,6 +356,31 @@ class MainWindow(QMainWindow):
         self.createToolBars()
         self.createStatusBar()
         self.createDockWindows()
+
+    @QtCore.pyqtSlot(str)
+    def appendTextToExperimentConsole(self, text):
+        #self.textedit.moveCursor(QtGui.QTextCursor.End)
+        #self.textedit.insertPlainText(text)
+        self.wgtExperimentConsole.qPlainTextWgt.moveCursor(QtGui.QTextCursor.End)
+        self.wgtExperimentConsole.qPlainTextWgt.insertPlainText(text)
+
+
+
+    @QtCore.pyqtSlot()
+    def startAlgorithmsInThread(self):
+        self.thread = QtCore.QThread()
+
+        # An example QObject (to be run in a QThread) which outputs information with print
+        class LongRunningThing(QtCore.QObject):
+            @QtCore.pyqtSlot()
+            def run(self):
+                for i in range(1000):
+                    print(i)
+
+        self.long_running_thing = LongRunningThing()
+        self.long_running_thing.moveToThread(self.thread)
+        self.thread.started.connect(self.long_running_thing.run)
+        self.thread.start()
 
     def run(self):
         self.show()

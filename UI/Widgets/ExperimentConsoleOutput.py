@@ -34,6 +34,9 @@ class ExperimentConsoleOutput(QWidget):
         #
         self.run()
 
+    def qPlainTextWgt(self):
+        return self.__plainTextWgt
+
     def run(self):
         try:
             self.show()
