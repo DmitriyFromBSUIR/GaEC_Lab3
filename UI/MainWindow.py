@@ -350,7 +350,7 @@ class MainWindow(QMainWindow):
         self.configureWindow()
         # set central wgt that save high level control panels
 
-        # build main ui controls
+        # build main ui controlsh
         self.createActions()
         self.createMenus()
         self.createToolBars()

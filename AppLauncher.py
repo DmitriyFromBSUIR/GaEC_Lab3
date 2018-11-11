@@ -160,6 +160,8 @@ if __name__ == '__main__':
     appGuiLauncher.consoleLogsUpdateSignal.connect(mainWin.appendTextToExperimentConsole)
     appGuiLauncher.moveToThread(thread)
     thread.started.connect(appGuiLauncher.run)
+
+    mainWin.startAlgorithmsInThread()
     thread.start()
 
     # Start event loop

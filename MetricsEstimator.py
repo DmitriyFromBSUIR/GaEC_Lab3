@@ -5,7 +5,7 @@ class Fitness:
     def __init__(self, route):
         self.route = route
         self.distance = 0
-        self.fitness= 0.0
+        self.fitness = 0.0
 
     def routeDistance(self):
         if self.distance == 0:
