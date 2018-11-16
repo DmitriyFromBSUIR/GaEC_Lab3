@@ -30,8 +30,8 @@ if __name__ == "__main__":
     # labels
     nx.draw_networkx_labels(G, pos, font_size=20, font_family='sans-serif')
 
-    #labels = nx.get_edge_attributes(G, 'weight')
-    #nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+    labels = nx.get_edge_attributes(G, 'weight')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
 
     plt.axis('off')
     plt.show()

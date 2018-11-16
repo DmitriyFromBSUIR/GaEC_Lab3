@@ -254,10 +254,7 @@ class MainWindow(QMainWindow):
     def createExperimentTasksVisualizationWgt(self):
         dockWin = QDockWidget("Experiment Tasks Visualization", self)
         dockWin.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.wgtExperimentTasksVisualizer = QListWidget(dockWin)
-        self.wgtExperimentTasksVisualizer.addItems((
-            "File 1",
-            "File 2"))
+        self.wgtExperimentTasksVisualizer =
         dockWin.setWidget(self.wgtExperimentTasksVisualizer)
         # self.addDockWidget(Qt.NoDockWidgetArea, dockWin)
         self.viewMenu.addAction(dockWin.toggleViewAction())

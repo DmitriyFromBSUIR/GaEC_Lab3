@@ -12,6 +12,9 @@ class Record:
         self.__y = y
         self.__id = id
 
+    def __repr__(self):
+        return "Record( id: " + str(self.__id) + ", x: " + str(self.x) + ", y: " + str(self.y) + ")"
+
     @property
     def x(self):
         return self.__x
