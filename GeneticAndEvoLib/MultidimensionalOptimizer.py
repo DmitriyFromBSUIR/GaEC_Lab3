@@ -284,7 +284,7 @@ def write_best():
     # for i in xrange(0,dim):
     #     f_best.write(str((pop[best_index])[i]) + '\t')
     print("best val: " + str(best_val))
-    f_best_list.append(fvals[best_index].append(best_val))
+    # f_best_list.append(fvals[best_index])
     f_best.write(str(best_val))
     f_best.write('\n')
 
@@ -343,13 +343,16 @@ def viz():
                s=40
                )
 
+    '''
     for val in f_best_list:
+        print("val ", val)
         ax.scatter(np.array([val[0]]),
                    np.array([val[1]]),
                    np.array([val[2]]),
                    color='yellow',
                    s=20
                    )
+    '''
 
     ax.set_xlabel('X Label')
     ax.set_ylabel('Y Label')
